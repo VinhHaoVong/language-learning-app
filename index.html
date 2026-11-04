@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f7f2">
+    <title>Word Garden | English Vocabulary Practice</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Word Garden home">
+          <span class="brand-mark" aria-hidden="true">w</span>
+          <span>word garden</span>
+        </a>
+        <span class="level-pill"><span aria-hidden="true">✦</span> A little practice, every day</span>
+      </header>
+
+      <section class="intro" aria-labelledby="page-title">
+        <p class="eyebrow">YOUR ENGLISH PRACTICE</p>
+        <h1 id="page-title">Grow your <span>word power.</span></h1>
+        <p class="intro-copy">A few new words can take you a long way. Pick a way to practice.</p>
+      </section>
+
+      <nav class="tabs" aria-label="Practice modes">
+        <button class="tab-button active" type="button" data-view="learn" aria-current="page">
+          <span aria-hidden="true">▤</span> Learn
+        </button>
+        <button class="tab-button" type="button" data-view="quiz">
+          <span aria-hidden="true">✳</span> Quick quiz
+        </button>
+        <button class="tab-button" type="button" data-view="words">
+          <span aria-hidden="true">＋</span> My words
+        </button>
+      </nav>
+
+      <section class="practice-view" id="learn-view" aria-labelledby="learn-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">FLASHCARDS</p>
+            <h2 id="learn-title">Take a look</h2>
+          </div>
+          <span class="count-pill" id="card-count" aria-live="polite"></span>
+        </div>
+
+        <article class="flashcard" id="flashcard" aria-live="polite">
+          <div class="card-topline">
+            <span class="word-label" id="word-label">WORD 01</span>
+            <span class="word-category" id="word-category"></span>
+          </div>
+          <div class="word-content">
+            <span class="word-sparkle" aria-hidden="true">✳</span>
+            <h3 id="word-term"></h3>
+            <p class="word-pronunciation" id="word-pronunciation"></p>
+          </div>
+          <div class="definition-area" id="definition-area">
+            <p class="definition-prompt">Ready to find out what it means?</p>
+            <button class="button button-primary" id="reveal-button" type="button">Reveal meaning <span aria-hidden="true">→</span></button>
+          </div>
+          <div class="definition-area hidden" id="definition-content">
+            <p class="definition-text" id="word-definition"></p>
+            <p class="example-label">IN A SENTENCE</p>
+            <p class="word-example" id="word-example"></p>
+          </div>
+        </article>
+
+        <div class="card-controls">
+          <button class="button button-quiet" id="previous-button" type="button"><span aria-hidden="true">←</span> Previous</button>
+          <div class="card-dots" id="card-dots" aria-label="Card progress"></div>
+          <button class="button button-quiet" id="next-button" type="button">Next <span aria-hidden="true">→</span></button>
+        </div>
+      </section>
+
+      <section class="practice-view hidden" id="quiz-view" aria-labelledby="quiz-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">QUICK QUIZ</p>
+            <h2 id="quiz-title">Pick the meaning</h2>
+          </div>
+          <span class="count-pill" id="quiz-count"></span>
+        </div>
+        <article class="quiz-card">
+          <p class="quiz-prompt">What does this word mean?</p>
+          <h3 class="quiz-word" id="quiz-word"></h3>
+          <div class="answer-list" id="answer-list" role="group" aria-label="Choose a definition"></div>
+          <p class="quiz-feedback" id="quiz-feedback" aria-live="polite"></p>
+          <button class="button button-primary hidden" id="next-question-button" type="button">Next word <span aria-hidden="true">→</span></button>
+        </article>
+        <p class="small-note">Take as many practice rounds as you’d like.</p>
+      </section>
+
+      <section class="practice-view hidden" id="words-view" aria-labelledby="words-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">MAKE IT YOURS</p>
+            <h2 id="words-title">Add a word</h2>
+          </div>
+          <span class="count-pill" id="saved-count"></span>
+        </div>
+        <form class="word-form" id="word-form">
+          <label for="new-word">Word</label>
+          <input id="new-word" name="word" type="text" maxlength="40" placeholder="e.g. curious" required>
+          <label for="new-definition">Meaning</label>
+          <textarea id="new-definition" name="definition" rows="2" maxlength="180" placeholder="What does it mean?" required></textarea>
+          <label for="new-example">Example sentence <span class="optional">(optional)</span></label>
+          <input id="new-example" name="example" type="text" maxlength="160" placeholder="Use the word in a sentence">
+          <button class="button button-primary" type="submit">Save my word <span aria-hidden="true">→</span></button>
+          <p class="form-feedback" id="form-feedback" aria-live="polite"></p>
+        </form>
+        <div class="saved-words">
+          <p class="eyebrow">YOUR SAVED WORDS</p>
+          <ul class="saved-word-list" id="saved-word-list"></ul>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <span class="footer-flower" aria-hidden="true">✳</span>
+        <span>Small steps make strong roots.</span>
+        <span class="footer-flower" aria-hidden="true">✳</span>
+      </footer>
+    </main>
+  </body>
+</html>

@@ -135,10 +135,15 @@ const elements = {
   nextButton: document.querySelector("#next-button"),
   cardDots: document.querySelector("#card-dots"),
   quizCount: document.querySelector("#quiz-count"),
+  quizQuestionCard: document.querySelector("#quiz-question-card"),
   quizWord: document.querySelector("#quiz-word"),
   answerList: document.querySelector("#answer-list"),
   quizFeedback: document.querySelector("#quiz-feedback"),
   nextQuestionButton: document.querySelector("#next-question-button"),
+  quizResults: document.querySelector("#quiz-results"),
+  quizScore: document.querySelector("#quiz-score"),
+  quizResultsMessage: document.querySelector("#quiz-results-message"),
+  restartQuizButton: document.querySelector("#restart-quiz-button"),
   wordForm: document.querySelector("#word-form"),
   formFeedback: document.querySelector("#form-feedback"),
   savedCount: document.querySelector("#saved-count"),
@@ -148,7 +153,10 @@ const elements = {
 let customWords = loadCustomWords();
 let currentCard = 0;
 let definitionIsVisible = false;
-let quizNumber = 1;
+const QUIZ_LENGTH = 10;
+let quizQuestions = [];
+let quizIndex = 0;
+let quizScore = 0;
 let currentQuestion = null;
 let questionAnswered = false;
 
@@ -193,7 +201,7 @@ function showView(name) {
     if (isActive) tab.setAttribute("aria-current", "page");
     else tab.removeAttribute("aria-current");
   }
-  if (name === "quiz") renderQuestion();
+  if (name === "quiz") startQuiz();
   if (name === "words") renderSavedWords();
 }
 
@@ -244,22 +252,32 @@ function shuffle(items) {
   return copy;
 }
 
+function startQuiz() {
+  quizQuestions = shuffle(getWords()).slice(0, QUIZ_LENGTH);
+  quizIndex = 0;
+  quizScore = 0;
+  renderQuestion();
+}
+
 function renderQuestion() {
   const words = getWords();
-  const possibleQuestions = words.length > 1
-    ? words.filter((item) => item.word !== currentQuestion?.word)
-    : words;
-  currentQuestion = possibleQuestions[Math.floor(Math.random() * possibleQuestions.length)];
-  const wrongAnswers = shuffle(words.filter((item) => item.word !== currentQuestion.word))
-    .slice(0, Math.min(3, words.length - 1));
+  currentQuestion = quizQuestions[quizIndex];
+  const wrongAnswers = shuffle(words.filter((item) =>
+    item.word !== currentQuestion.word && item.definition !== currentQuestion.definition
+  )).slice(0, 3);
   const options = shuffle([currentQuestion, ...wrongAnswers]);
   questionAnswered = false;
 
-  elements.quizCount.textContent = `WORD ${String(quizNumber).padStart(2, "0")}`;
+  elements.quizCount.textContent = `QUESTION ${quizIndex + 1} OF ${QUIZ_LENGTH}`;
   elements.quizWord.textContent = currentQuestion.word;
   elements.quizFeedback.textContent = "";
   elements.quizFeedback.classList.remove("incorrect");
   elements.nextQuestionButton.classList.add("hidden");
+  elements.nextQuestionButton.innerHTML = quizIndex === QUIZ_LENGTH - 1
+    ? 'See your score <span aria-hidden="true">→</span>'
+    : 'Next question <span aria-hidden="true">→</span>';
+  elements.quizQuestionCard.classList.remove("hidden");
+  elements.quizResults.classList.add("hidden");
   elements.answerList.replaceChildren();
 
   for (const option of options) {
@@ -280,6 +298,7 @@ function answerQuestion(selectedButton, selectedWord) {
 
   if (selectedWord.word === currentQuestion.word) {
     selectedButton.classList.add("correct");
+    quizScore += 1;
     elements.quizFeedback.textContent = "That’s right! Nice work.";
   } else {
     selectedButton.classList.add("incorrect");
@@ -289,6 +308,19 @@ function answerQuestion(selectedButton, selectedWord) {
     elements.quizFeedback.classList.add("incorrect");
   }
   elements.nextQuestionButton.classList.remove("hidden");
+}
+
+function showQuizResults() {
+  elements.quizQuestionCard.classList.add("hidden");
+  elements.quizResults.classList.remove("hidden");
+  elements.quizCount.textContent = "QUIZ COMPLETE";
+  elements.quizScore.textContent = `${quizScore} out of ${QUIZ_LENGTH}`;
+  const percentage = quizScore / QUIZ_LENGTH;
+  elements.quizResultsMessage.textContent = percentage === 1
+    ? "Perfect score! You know these words well."
+    : percentage >= 0.7
+      ? "Great work! Keep practicing to make these words stick."
+      : "Nice effort! Practice again and see how much you remember.";
 }
 
 function renderSavedWords() {
@@ -348,9 +380,14 @@ elements.revealButton.addEventListener("click", () => {
 elements.previousButton.addEventListener("click", () => setCard(currentCard - 1));
 elements.nextButton.addEventListener("click", () => setCard(currentCard + 1));
 elements.nextQuestionButton.addEventListener("click", () => {
-  quizNumber += 1;
+  if (quizIndex === QUIZ_LENGTH - 1) {
+    showQuizResults();
+    return;
+  }
+  quizIndex += 1;
   renderQuestion();
 });
+elements.restartQuizButton.addEventListener("click", startQuiz);
 
 elements.wordForm.addEventListener("submit", (event) => {
   event.preventDefault();

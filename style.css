@@ -106,6 +106,10 @@ h1, h2, h3, p { margin-top: 0; }
 .answer-option.incorrect { border-color: #e7b6a7; background: #fcf0ec; color: #8a4b3b; }
 .quiz-feedback { min-height: 22px; margin: 13px 0 8px; color: var(--green); font-size: 12px; font-weight: 600; }
 .quiz-feedback.incorrect { color: #a45b48; }
+.quiz-results { padding: 38px 24px; }
+.results-sparkle { display: block; margin-bottom: 12px; color: #c3a36c; font-size: 22px; }
+.quiz-results h3 { margin: 10px 0 7px; color: var(--green); font-family: var(--serif); font-size: 46px; font-weight: 400; }
+.results-message { margin: 0 0 20px; color: var(--muted); font-size: 12px; line-height: 1.5; }
 .small-note { margin: 13px 0 0; color: #9ba29a; font-size: 10px; text-align: center; }
 
 .word-form { display: grid; gap: 8px; padding: 21px; }

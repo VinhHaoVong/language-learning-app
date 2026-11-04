@@ -76,17 +76,24 @@
       <section class="practice-view hidden" id="quiz-view" aria-labelledby="quiz-title">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">QUICK QUIZ</p>
+            <p class="eyebrow">10-QUESTION QUIZ</p>
             <h2 id="quiz-title">Pick the meaning</h2>
           </div>
           <span class="count-pill" id="quiz-count"></span>
         </div>
-        <article class="quiz-card">
+        <article class="quiz-card" id="quiz-question-card">
           <p class="quiz-prompt">What does this word mean?</p>
           <h3 class="quiz-word" id="quiz-word"></h3>
           <div class="answer-list" id="answer-list" role="group" aria-label="Choose a definition"></div>
           <p class="quiz-feedback" id="quiz-feedback" aria-live="polite"></p>
-          <button class="button button-primary hidden" id="next-question-button" type="button">Next word <span aria-hidden="true">→</span></button>
+          <button class="button button-primary hidden" id="next-question-button" type="button">Next question <span aria-hidden="true">→</span></button>
+        </article>
+        <article class="quiz-card quiz-results hidden" id="quiz-results" aria-live="polite">
+          <span class="results-sparkle" aria-hidden="true">✳</span>
+          <p class="eyebrow">ROUND COMPLETE</p>
+          <h3 id="quiz-score"></h3>
+          <p class="results-message" id="quiz-results-message"></p>
+          <button class="button button-primary" id="restart-quiz-button" type="button">Try again <span aria-hidden="true">↻</span></button>
         </article>
         <p class="small-note">Take as many practice rounds as you’d like.</p>
       </section>

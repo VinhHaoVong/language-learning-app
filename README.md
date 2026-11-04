@@ -7,7 +7,7 @@ wefhkadhfa
 
 ## English vocabulary practice
 
-Word Garden is a browser-based vocabulary app with flashcards, a multiple-choice quiz, and a form for adding your own words. Custom words are saved in your browser on this device.
+Word Garden is a browser-based vocabulary app with flashcards, a 10-question multiple-choice quiz with a final score, and a form for adding your own words. Custom words are saved in your browser on this device.
 
 ### Run the app
 
